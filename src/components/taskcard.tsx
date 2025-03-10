@@ -4,7 +4,6 @@ import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
-import ConfettiExplosion from "react-confetti-explosion";
 
 type Props = {};
 
@@ -16,30 +15,13 @@ const workoutRoutine = [
 
 export default function TaskCard({}: Props) {
   const [workouts, setWorkouts] = useState(workoutRoutine);
-  const [showConfetti, setShowConfetti] = useState<number | null>(null);
-
-  // Reset confetti after animation
-  useEffect(() => {
-    if (showConfetti !== null) {
-      const timer = setTimeout(() => {
-        setShowConfetti(null);
-      }, 2000); // Match this with the confetti duration
-      return () => clearTimeout(timer);
-    }
-  }, [showConfetti]);
 
   const toggleComplete = (id: number) => {
     setWorkouts((prev) => {
       const newWorkouts = prev.map((w) =>
         w.id === id ? { ...w, isComplete: !w.isComplete } : w
       );
-
-      // If the workout is being marked as complete, show confetti
       const workout = newWorkouts.find((w) => w.id === id);
-      if (workout && workout.isComplete) {
-        setShowConfetti(id);
-      }
-
       return newWorkouts;
     });
   };
@@ -62,9 +44,12 @@ export default function TaskCard({}: Props) {
         </span>
       </div>
       {workouts.map((workout) => (
-        <div
+        <motion.div
           key={workout.id}
           onClick={() => toggleComplete(workout.id)}
+          whileTap={{ scale: 0.97 }}
+          animate={workout.isComplete ? { scale: [1, 1.05, 1] } : {}}
+          transition={{ duration: 0.3 }}
           className="bg-glass/40 backdrop-blur-lg shadow-xl p-5 cursor-pointer rounded-lg text-gray-300 w-sm"
         >
           <div className="flex items-center justify-between">
@@ -82,7 +67,7 @@ export default function TaskCard({}: Props) {
               )}
             </div>
           </div>
-        </div>
+        </motion.div>
       ))}
     </motion.div>
   );
