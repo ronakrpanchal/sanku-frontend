@@ -3,6 +3,7 @@ import { Dumbbell } from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { Separator } from "./ui/separator";
+import { GiGymBag } from "react-icons/gi";
 import {
   Popover,
   PopoverContent,
@@ -33,29 +34,19 @@ const navLinks = [
 export default function Navbar({}: Props) {
   return (
     <>
-      <nav className="wrapper">
-        <div className="flex m-10 mb-5 justify-between items-center ">
-          <h2 className="text-3xl flex gap-2 items-center font-semibold">
-            <Dumbbell />
-            Gymbro
-          </h2>
-          <div className="hidden md:flex items-center gap-10 font-semibold text-gray-400">
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href}>
-                {link.name}
-              </Link>
-            ))}
-          </div>
-          <Link href={"/about"} className="hidden md:block">
-            <Button className="p-5 py-7 font-semibold cursor-pointer">
-              Join Waitlist
-            </Button>
-          </Link>
+      <nav className="wrapper p-5 py-7 flex justify-between items-center">
+        <h2 className="flex items-center text-3xl">
+          <Dumbbell className="mr-2" />
+          GymBro
+        </h2>
+        <div className="flex gap-4 items-center">
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href}>
+              {link.name}
+            </Link>
+          ))}
 
-          <Popover>
-            <PopoverTrigger>Open</PopoverTrigger>
-            <PopoverContent>Place content for the popover here.</PopoverContent>
-          </Popover>
+          <Button className="cursor-pointer">Get started</Button>
         </div>
       </nav>
       <Separator />

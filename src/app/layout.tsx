@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Inter_Tight } from "next/font/google";
+import { Geist_Mono, Instrument_Serif, Manrope } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = Inter_Tight({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+const satoshifont = localFont({
+  src: "../../public/fonts/Satoshi-Regular.woff2",
+  display: "swap",
+  variable: "--font-satoshi",
 });
-
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${satoshifont.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
