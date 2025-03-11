@@ -8,7 +8,7 @@ import { ArrowLeft } from "lucide-react";
 type Props = {};
 
 const workoutRoutine = [
-  { id: 1, name: "Benchpress", weight: 40, rep: 10, isComplete: true },
+  { id: 1, name: "Benchpress", weight: 40, rep: 10, isComplete: false },
   { id: 2, name: "Dumbbell Press", weight: 25, rep: 10, isComplete: false },
   { id: 3, name: "Deadlift", weight: 100, rep: 8, isComplete: false },
 ];
@@ -50,12 +50,12 @@ export default function TaskCard({}: Props) {
           whileTap={{ scale: 0.97 }}
           animate={workout.isComplete ? { scale: [1, 1.05, 1] } : {}}
           transition={{ duration: 0.3 }}
-          className="bg-glass/40 backdrop-blur-lg shadow-xl p-5 cursor-pointer rounded-lg text-gray-300 w-sm"
+          className="bg-glass/40 backdrop-blur-lg shadow-xl p-5 cursor-pointer rounded-lg text-gray-300 md:w-sm"
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="w-6 text-center">{workout.id}</span>
-              <span className="w-32">{workout.name}</span>
+              <span className="text-center">{workout.id}</span>
+              <span className=" ">{workout.name}</span>
             </div>
             <div className="flex items-center gap-3">
               <span className="">{workout.weight} kg</span>

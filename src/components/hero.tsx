@@ -20,7 +20,7 @@ export default function Hero({}: Props) {
         Gymbro is now available
       </p>
       <div>
-        <h2 className="text-6xl font-extrabold text-center">
+        <h2 className="text-5xl md:text-6xl font-extrabold text-center">
           Your AI-powered gym partner,
           <br />
           <span className={`${instrumentSerif.className}`}>
@@ -29,7 +29,7 @@ export default function Hero({}: Props) {
           get stronger.
         </h2>
       </div>
-      <p className="text-gray-400">
+      <p className="text-gray-400 px-20 text-center md:px-0">
         Get more done with less effort, in a way that works for you.
       </p>
       <div className="space-y-2 flex flex-col items-center">
