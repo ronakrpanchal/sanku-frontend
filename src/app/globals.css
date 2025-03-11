@@ -121,6 +121,7 @@
 
 @theme {
   --color-glass: #474060;
+  --color-primary:#512feb;
 }
 
 
@@ -143,8 +144,14 @@
   opacity: 1;
 }
 
-.font-instrument{
-  font-family: var(--font-instrument);
+
+
+.gradient-text {
+  background: linear-gradient(90deg, #6366F1 0%, #9F7AEA 50%, #F472B6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: bold;
 }
 
 .gradient-bg {

@@ -1,8 +1,6 @@
 import React from "react";
 import { Button } from "./ui/button";
-import { Input } from "@/components/ui/input";
 import { BicepsFlexed } from "lucide-react";
-import Image from "next/image";
 import { Instrument_Serif } from "next/font/google";
 import TaskCard from "./taskcard";
 type Props = {};
@@ -11,6 +9,7 @@ const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument",
   subsets: ["latin"],
   weight: ["400"],
+  style: ["italic"],
 });
 
 export default function Hero({}: Props) {
