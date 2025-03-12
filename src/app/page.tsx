@@ -1,3 +1,4 @@
+"use client";
 import Navbar from "@/components/navbar";
 import Hero from "@/components/hero";
 import { Instrument_Serif } from "next/font/google";
@@ -5,6 +6,7 @@ import { FaStar } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { Check, Divide } from "lucide-react";
 import { FaArrowRight } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument",
@@ -29,7 +31,13 @@ export default function Home() {
 
 const IntroducingSenku = () => {
   return (
-    <div className="wrapper flex justify-center flex-col items-center mt-10 px-4 md:px-6 space-y-3">
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="wrapper flex justify-center flex-col items-center mt-10 px-4 md:px-6 space-y-3"
+    >
       <h2 className="text-xl font-bold uppercase gradient-text">
         What Senku want's to say
       </h2>
@@ -42,13 +50,12 @@ const IntroducingSenku = () => {
           Your AI-powered training partner keeps you on track, motivated, and
           making real progress with every rep and set.{" "}
         </span>
-        <br className="" />
+        <br />
         That's where Gymbro comes in.{" "}
       </h1>
-    </div>
+    </motion.div>
   );
 };
-
 const HowItWroks = () => {
   const content = [
     {
@@ -83,9 +90,13 @@ const HowItWroks = () => {
       <div className="gradient-bg absolute" />
       {/* cards */}
       <div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:gap-10 md:h-[30rem] w-full relative mt-10">
-        {content.map((process) => (
-          <fieldset
+        {content.map((process, index) => (
+          <motion.fieldset
             key={process.id}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.2 }}
+            viewport={{ once: true }}
             className="p-5 md:p-7 border backdrop-blur-2xl border-gray-800 rounded-xl md:rounded-[2.2rem] shadow-2xl bg-glass/10 flex flex-col h-full"
           >
             <legend className="border border-gray-800 py-2 px-5 mx-auto rounded-full bg-[#171717]">
@@ -99,7 +110,7 @@ const HowItWroks = () => {
                 beatae excepturi.
               </span>
             </div>
-          </fieldset>
+          </motion.fieldset>
         ))}
       </div>
     </div>
