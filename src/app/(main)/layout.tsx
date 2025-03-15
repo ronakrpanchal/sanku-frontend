@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Dumbbell, House, Trophy, PersonStanding } from "lucide-react";
 import { FaBowlFood } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 type Props = { children: React.ReactNode };
 
@@ -18,7 +19,12 @@ export default function Layout({ children }: Props) {
 
   return (
     <div className="flex h-screen">
-      <aside className="h-screen flex flex-col w-64 backdrop-blur-md  bg-opacity-20 border-r border-gray-800/30">
+      <motion.aside
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="h-screen flex flex-col w-64 bg-black/30 border-r border-gray-800/30 backdrop-blur-md"
+      >
         {/* Logo */}
         <div className="p-6">
           <h2 className="text-2xl font-bold items-center flex gap-2 text-white">
@@ -31,17 +37,19 @@ export default function Layout({ children }: Props) {
         <div className="flex-1 overflow-y-auto py-6 px-4">
           <nav className="space-y-2">
             {Links.map((item) => (
-              <div
+              <motion.div
                 key={item.href}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveLink(item.href)}
                 className={`flex items-center text-sm rounded-xl cursor-pointer py-3 px-4 font-medium transition-all duration-300 ${
                   activeLink === item.href
-                    ? "bg-gradient-to-r from-indigo-600/40 to-indigo-500/20 text-white shadow-lg"
-                    : "text-gray-300 hover:bg-white/5"
+                    ? "bg-gradient-to-r from-indigo-600/50 to-indigo-500/30 text-white shadow-lg border-l-4 border-indigo-400"
+                    : "text-gray-300 hover:bg-white/10"
                 }`}
               >
                 <item.icon
-                  size={18}
+                  size={20}
                   className={`${
                     activeLink === item.href
                       ? "text-indigo-300"
@@ -50,16 +58,23 @@ export default function Layout({ children }: Props) {
                 />
                 <span className="ml-3">{item.name}</span>
                 {activeLink === item.href && (
-                  <div className="ml-auto w-1.5 h-1.5 bg-indigo-400 rounded-full"></div>
+                  <motion.div
+                    layoutId="active-indicator"
+                    className="ml-auto w-1.5 h-1.5 bg-indigo-400 rounded-full"
+                  ></motion.div>
                 )}
-              </div>
+              </motion.div>
             ))}
           </nav>
         </div>
 
         {/* User Profile */}
-        <div className="p-4">
-          <div className="flex items-center space-x-3 bg-white/5 backdrop-blur-sm p-3 rounded-xl cursor-pointer hover:bg-white/10 transition-all duration-300 border border-white/10">
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.2 }}
+          className="p-4"
+        >
+          <div className="flex items-center space-x-3 bg-white/5 p-3 rounded-xl cursor-pointer hover:bg-white/15 transition-all duration-300 border border-indigo-500/20">
             <div className="w-10 h-10 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center text-xs font-medium text-white">
               JD
             </div>
@@ -68,8 +83,8 @@ export default function Layout({ children }: Props) {
               <p className="text-xs text-indigo-200/70">Pro Member</p>
             </div>
           </div>
-        </div>
-      </aside>
+        </motion.div>
+      </motion.aside>
 
       <main className="flex-1">{children}</main>
     </div>
