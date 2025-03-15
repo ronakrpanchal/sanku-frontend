@@ -4,7 +4,7 @@ import Hero from "@/components/hero";
 import { Instrument_Serif } from "next/font/google";
 import { FaStar } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import { Check, Divide } from "lucide-react";
+import { Check } from "lucide-react";
 import { FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 
