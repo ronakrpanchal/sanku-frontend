@@ -137,6 +137,12 @@
   .wrapper{
     @apply max-w-[1400px] mx-auto
   }
+  .glass-effect{
+    @apply bg-indigo-900/20 backdrop-blur-sm border border-indigo-500/20 rounded-xl p-4 hover:bg-indigo-900/30 transition-all duration-300
+  }
+  .line-gradient{
+    @apply bg-gradient-to-r from-indigo-500 to-purple-500 mt-2 rounded-full
+  }
 }
 
 

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Dumbbell, House, Trophy, PersonStanding } from "lucide-react";
+import { Dumbbell, House, Trophy, BotMessageSquare } from "lucide-react";
+import Link from "next/link";
 import { FaBowlFood } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
@@ -8,10 +9,10 @@ type Props = { children: React.ReactNode };
 
 const Links = [
   { name: "Overview", href: "/overview", icon: House },
-  { name: "Workouts", href: "/workouts", icon: Dumbbell },
+  { name: "Workouts", href: "/workout", icon: Dumbbell },
   { name: "Achievement", href: "/achievement", icon: Trophy },
   { name: "Food Log", href: "/food", icon: FaBowlFood },
-  { name: "Profile", href: "/profile", icon: PersonStanding },
+  { name: "Senku", href: "/chat", icon: BotMessageSquare },
 ];
 
 export default function Layout({ children }: Props) {
@@ -35,35 +36,36 @@ export default function Layout({ children }: Props) {
 
         {/* Navigation Links */}
         <div className="flex-1 overflow-y-auto py-6 px-4">
-          <nav className="space-y-2">
+          <nav className="flex flex-col gap-2">
             {Links.map((item) => (
-              <motion.div
-                key={item.href}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setActiveLink(item.href)}
-                className={`flex items-center text-sm rounded-xl cursor-pointer py-3 px-4 font-medium transition-all duration-300 ${
-                  activeLink === item.href
-                    ? "bg-gradient-to-r from-indigo-600/50 to-indigo-500/30 text-white shadow-lg border-l-4 border-indigo-400"
-                    : "text-gray-300 hover:bg-white/10"
-                }`}
-              >
-                <item.icon
-                  size={20}
-                  className={`${
+              <Link key={item.href} href={item.href}>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setActiveLink(item.href)}
+                  className={`flex items-center text-sm rounded-xl cursor-pointer py-3 px-4 font-medium transition-all duration-300 ${
                     activeLink === item.href
-                      ? "text-indigo-300"
-                      : "text-gray-400"
+                      ? "bg-gradient-to-r from-indigo-600/50 to-indigo-500/30 text-white shadow-lg border-l-4 border-indigo-400"
+                      : "text-gray-300 hover:bg-white/10"
                   }`}
-                />
-                <span className="ml-3">{item.name}</span>
-                {activeLink === item.href && (
-                  <motion.div
-                    layoutId="active-indicator"
-                    className="ml-auto w-1.5 h-1.5 bg-indigo-400 rounded-full"
-                  ></motion.div>
-                )}
-              </motion.div>
+                >
+                  <item.icon
+                    size={20}
+                    className={`${
+                      activeLink === item.href
+                        ? "text-indigo-300"
+                        : "text-gray-400"
+                    }`}
+                  />
+                  <span className="ml-3">{item.name}</span>
+                  {activeLink === item.href && (
+                    <motion.div
+                      layoutId="sidebar"
+                      className="ml-auto w-1.5 h-1.5 bg-indigo-400 rounded-full"
+                    ></motion.div>
+                  )}
+                </motion.div>
+              </Link>
             ))}
           </nav>
         </div>
@@ -86,7 +88,10 @@ export default function Layout({ children }: Props) {
         </motion.div>
       </motion.aside>
 
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 overflow-x-auto">
+        <div className="gradient-bg absolute bottom-0 left-0"></div>
+        <div className="max-w-[1500px] mx-auto h-screen py-16">{children}</div>
+      </main>
     </div>
   );
 }
