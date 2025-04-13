@@ -143,6 +143,9 @@
   .line-gradient{
     @apply bg-gradient-to-r from-indigo-500 to-purple-500 mt-2 rounded-full
   }
+  .bg-gradient {
+    @apply bg-gradient-to-r from-indigo-600/50 to-indigo-500/30
+  }
 }
 
 
@@ -167,8 +170,11 @@
   height: 200px;
   background: rgb(2,0,36);
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgb(1, 21, 152) 53%, rgba(255,0,140,1) 100%);
+  position: absolute;
   z-index: -1;
-  filter: blur(300px);
+  filter: blur(100px);
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 
