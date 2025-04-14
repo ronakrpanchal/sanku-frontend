@@ -42,9 +42,7 @@ export default function ChatInput({ className }: ChatInputProps) {
 
   return (
     <div className={cn("left-0 right-0 mx-auto w-full max-w-4xl", className)}>
-      <div
-        className={`rounded-2xl overflow-hidden transition-all duration-300 border bg-gray-500/10`}
-      >
+      <div className="rounded-2xl overflow-hidden transition-all duration-300 border bg-gray-500/10">
         <textarea
           ref={textareaRef}
           value={message}
