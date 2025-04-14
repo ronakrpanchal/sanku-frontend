@@ -9,7 +9,7 @@ import Link from "next/link";
 type Props = {};
 
 const Links = [
-  { name: "Chat", href: "/chat", icon: MessageCircle },
+  { name: "Chat", href: "/chat", icon: MessageCircle, optional: "/c" },
   { name: "Workouts", href: "/workout", icon: Dumbbell },
   { name: "Achievement", href: "/achievement", icon: Trophy },
   { name: "Notes", href: "/notes", icon: NotebookPen },
@@ -42,7 +42,8 @@ export default function SideBar({}: Props) {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={`flex items-center text-sm rounded-xl cursor-pointer py-3 px-4 font-medium transition-all duration-300 ${
-                  activeLink === item.href
+                  activeLink === item.href ||
+                  activeLink.startsWith(item.optional || "/x")
                     ? "bg-gradient-to-r from-indigo-600/50 to-indigo-500/30 text-white shadow-lg border-l-4 border-indigo-400"
                     : "text-gray-300 hover:bg-white/10"
                 }`}
