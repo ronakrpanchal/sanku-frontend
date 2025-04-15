@@ -1,19 +1,25 @@
 import React from "react";
 import ChatInput from "@/features/chat/components/chat-input";
 import MessageBubble from "@/features/chat/components/message-bubble";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type Props = {};
 
 export default function Page({}: Props) {
   return (
     <div className="flex h-full flex-col">
-      <div className="flex-grow overflow-y-auto py-4">
-        <div className="max-w-2xl mx-auto">
+      <ScrollArea className="flex-grow overflow-y-auto py-4">
+        <div className="max-w-3xl mx-auto space-y-20">
+          <MessageBubble isUser={false} />
+          <MessageBubble isUser={false} />
+          <MessageBubble isUser={false} />
+          <MessageBubble isUser={false} />
+          <MessageBubble isUser={false} />
           <MessageBubble isUser={false} />
         </div>
-      </div>
+      </ScrollArea>
       <div className="mt-auto">
-        <ChatInput className="max-w-2xl" />
+        <ChatInput className="max-w-3xl" />
       </div>
     </div>
   );

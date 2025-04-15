@@ -39,7 +39,7 @@ const IntroducingSenku = () => {
       className="wrapper flex justify-center flex-col items-center mt-10 px-4 md:px-6 space-y-3"
     >
       <h2 className="text-xl font-bold uppercase gradient-text">
-        What Senku want's to say
+        What Sanku want's to say
       </h2>
       <h1 className="text-2xl md:text-4xl text-center max-w-lg">
         Hey, I can understand{" "}
