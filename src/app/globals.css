@@ -2,6 +2,8 @@
 
 @plugin "tailwindcss-animate";
 
+@plugin "@tailwindcss/typography";
+
 @custom-variant dark (&:is(.dark *));
 
 
@@ -155,7 +157,15 @@
   opacity: 1;
 }
 
-
+.prose code {
+  background-color: #2e2e2e;
+  padding: 0.1em 0.3em;
+  font-weight: normal;
+  margin: 0.1em 0;
+  display: inline-block;
+  border-radius: 7px;
+  font-size: 0.9em;
+}
 
 .gradient-text {
   background: linear-gradient(90deg, #6366F1 0%, #9F7AEA 50%, #F472B6 100%);

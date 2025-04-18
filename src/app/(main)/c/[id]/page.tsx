@@ -11,11 +11,6 @@ export default function Page({}: Props) {
       <ScrollArea className="flex-grow overflow-y-auto py-4">
         <div className="max-w-3xl mx-auto space-y-20">
           <MessageBubble isUser={false} />
-          <MessageBubble isUser={false} />
-          <MessageBubble isUser={false} />
-          <MessageBubble isUser={false} />
-          <MessageBubble isUser={false} />
-          <MessageBubble isUser={false} />
         </div>
       </ScrollArea>
       <div className="mt-auto">

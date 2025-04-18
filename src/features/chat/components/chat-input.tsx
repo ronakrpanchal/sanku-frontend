@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from "react";
 import {
   SendHorizontal,
   Search,
-  Chrome,
   Lightbulb,
   MoreHorizontal,
 } from "lucide-react";
