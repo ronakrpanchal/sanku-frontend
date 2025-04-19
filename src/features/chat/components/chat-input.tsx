@@ -1,11 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import {
-  SendHorizontal,
-  Search,
-  Lightbulb,
-  MoreHorizontal,
-} from "lucide-react";
+import { SendHorizontal, Search, Lightbulb } from "lucide-react";
+import MoodChanger from "./moodchanger";
 import { cn } from "@/lib/utils";
 
 interface ChatInputProps {
@@ -63,9 +59,6 @@ export default function ChatInput({ className }: ChatInputProps) {
             </button>
             <button className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-indigo-400 rounded-full hover:bg-white/5 transition-colors">
               <Lightbulb size={18} />
-            </button>
-            <button className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-indigo-400 rounded-full hover:bg-white/5 transition-colors">
-              <MoreHorizontal size={18} />
             </button>
           </div>
           {/* Right side send button */}

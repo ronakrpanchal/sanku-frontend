@@ -114,7 +114,9 @@ Nepal is a country that offers something for everyone. Whether you are an advent
               size={20}
               className={`text-pink-400 ${isLoading ? "animate-pulse" : ""}`}
             />
-            <p>{isLoading ? "Sanku is thinking" : "Sanku"}</p>
+            <p className="font-bold">
+              {isLoading ? "Sanku is thinking" : "Sanku"}
+            </p>
             {isLoading && (
               <div className="inline-flex ml-1 items-center">
                 <span className="h-2 w-2 rounded-full bg-pink-400 mx-0.5 animate-pulse"></span>
@@ -128,7 +130,7 @@ Nepal is a country that offers something for everyone. Whether you are an advent
             <div className="text-red-400 italic">{error}</div>
           ) : (
             streamedMessage && (
-              <div className="prose prose-slate dark:prose-invert prose-lg">
+              <div className="prose prose-slate dark:prose-invert prose-lg prose-li:marker:text-pink-400 prose-p:font-semibold">
                 <Markdown remarkPlugins={[remarkGfm]}>
                   {streamedMessage}
                 </Markdown>
