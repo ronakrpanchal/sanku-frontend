@@ -29,7 +29,7 @@ export default function SideBar({}: Props) {
       <div className="p-6">
         <h2 className="text-2xl font-bold items-center flex gap-2 text-white">
           <Dumbbell className="text-indigo-400" />
-          <span>Gymbro</span>
+          <span>Sanku</span>
         </h2>
       </div>
 

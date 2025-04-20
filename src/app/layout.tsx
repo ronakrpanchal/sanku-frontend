@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import localFont from "next/font/local";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const satoshifont = localFont({
@@ -9,6 +10,7 @@ const satoshifont = localFont({
   display: "swap",
   variable: "--font-satoshi",
 });
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -36,6 +38,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,18 +12,7 @@ const instrumentSerif = Instrument_Serif({
   style: ["normal", "italic"],
 });
 
-export default function Page() {
-  const [currentToastIndex, setCurrentToastIndex] = useState(0);
-
-  // Function to handle YouTube redirect
-  const handlePlayMusic = () => {
-    // Using window.open for more reliable redirection
-    window.open(
-      "https://www.youtube.com/watch?v=eVli-tstM5E&list=RDeVli-tstM5E&start_radio=1",
-      "_blank"
-    );
-  };
-
+export default function LoginCard() {
   const toastMessages = [
     {
       title: "Heads Up",
@@ -40,7 +29,7 @@ export default function Page() {
         "You're in work mode. Want me to play your deep focus playlist?",
       action: {
         label: "Play 🎵",
-        onClick: handlePlayMusic,
+        onClick: () => console.log("User clicked Play"),
       },
     },
     {
@@ -62,9 +51,9 @@ export default function Page() {
   ];
 
   useEffect(() => {
-    // Function to show toast in sequential order
-    const showSequentialToast = () => {
-      const message = toastMessages[currentToastIndex];
+    const showRandomToast = () => {
+      const randomIndex = Math.floor(Math.random() * toastMessages.length);
+      const message = toastMessages[randomIndex];
 
       toast(message.title, {
         description: message.description,
@@ -72,26 +61,34 @@ export default function Page() {
         position: "top-center",
         duration: 5000,
       });
-
-      setCurrentToastIndex(
-        (prevIndex) => (prevIndex + 1) % toastMessages.length
-      );
     };
 
+    // Show initial toast after a short delay
     const initialTimeout = setTimeout(() => {
       toast("Sanku- Hey, how you doing?", {
         description: "Welcome back to the platform!",
-        position: "top-center",
+        position: "top-right",
       });
     }, 2000);
 
-    const intervalId = setInterval(showSequentialToast, 20000);
+    // Set interval to show toasts every minute
+    const intervalId = setInterval(showRandomToast, 60000); // 60000 ms = 1 minute
 
+    // Clean up on component unmount
     return () => {
       clearTimeout(initialTimeout);
       clearInterval(intervalId);
     };
-  }, [currentToastIndex]);
+  }, []);
+
+  // Handle redirect in client component
+  const handlePlayClick = () => {
+    window.location.href = "/";
+    // Note: For Next.js navigation within the app, you would typically use:
+    // import { useRouter } from 'next/navigation';
+    // const router = useRouter();
+    // router.push('/');
+  };
 
   return (
     <div className="flex justify-center items-center h-screen w-full">
@@ -133,6 +130,24 @@ export default function Page() {
               />
             </svg>
             Sign in with Google
+          </Button>
+
+          <Button
+            variant="outline"
+            className="w-full mt-2 text-white border-gray-600 hover:bg-gray-700"
+            onClick={() => {
+              const randomIndex = Math.floor(
+                Math.random() * toastMessages.length
+              );
+              const message = toastMessages[randomIndex];
+
+              toast(message.title, {
+                description: message.description,
+                action: message.action,
+              });
+            }}
+          >
+            Test Toast
           </Button>
         </CardContent>
       </Card>
