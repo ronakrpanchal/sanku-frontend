@@ -1,16 +1,20 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { SendHorizontal, Search, Lightbulb } from "lucide-react";
-import MoodChanger from "./moodchanger";
 import { cn } from "@/lib/utils";
 
 interface ChatInputProps {
   className?: string;
+  onSend?: (message: string) => Promise<void> | void;
+  disabled?: boolean;
 }
 
-export default function ChatInput({ className }: ChatInputProps) {
+export default function ChatInput({
+  className,
+  onSend,
+  disabled = false,
+}: ChatInputProps) {
   const [message, setMessage] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -21,11 +25,14 @@ export default function ChatInput({ className }: ChatInputProps) {
     }
   }, [message]);
 
-  const handleSendMessage = () => {
-    if (message.trim()) {
-      console.log("Message sent:", message);
-      setMessage("");
+  const handleSendMessage = async () => {
+    const trimmedMessage = message.trim();
+    if (!trimmedMessage || disabled) {
+      return;
     }
+
+    await onSend?.(trimmedMessage);
+    setMessage("");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -43,8 +50,7 @@ export default function ChatInput({ className }: ChatInputProps) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          disabled={disabled}
           placeholder="Ask anything"
           className="w-full bg-transparent border-0 min-h-14 max-h-[300px] px-5 py-4 text-white focus:outline-none placeholder:text-gray-500 resize-none"
           rows={1}
@@ -64,15 +70,17 @@ export default function ChatInput({ className }: ChatInputProps) {
           {/* Right side send button */}
           <button
             onClick={handleSendMessage}
-            disabled={!message.trim()}
+            disabled={!message.trim() || disabled}
             className={`px-5 h-10 flex items-center justify-center rounded-full text-white duration-200 ${
-              message.trim()
+              message.trim() && !disabled
                 ? "bg-indigo-600 shadow-md"
                 : "bg-transparent border border-gray-700 text-gray-500"
             }`}
           >
             <SendHorizontal size={18} className="mr-2" />
-            <span className="text-sm font-medium">Send</span>
+            <span className="text-sm font-medium">
+              {disabled ? "Sending..." : "Send"}
+            </span>
           </button>
         </div>
       </div>

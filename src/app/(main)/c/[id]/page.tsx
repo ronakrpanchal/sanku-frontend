@@ -3,9 +3,7 @@ import ChatInput from "@/features/chat/components/chat-input";
 import MessageBubble from "@/features/chat/components/message-bubble";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-type Props = {};
-
-export default function Page({}: Props) {
+export default function Page() {
   return (
     <div className="flex h-full flex-col">
       <ScrollArea className="flex-grow overflow-y-auto py-4">

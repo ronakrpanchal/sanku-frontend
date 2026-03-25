@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Instrument_Serif } from "next/font/google";
+import { getBackendLoginUrl } from "@/lib/api";
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument",
@@ -14,6 +15,10 @@ const instrumentSerif = Instrument_Serif({
 
 export default function Page() {
   const [currentToastIndex, setCurrentToastIndex] = useState(0);
+
+  const handleGoogleLogin = () => {
+    window.location.href = getBackendLoginUrl();
+  };
 
   // Function to handle YouTube redirect
   const handlePlayMusic = () => {
@@ -106,10 +111,13 @@ export default function Page() {
             <p
               className={`text-sm text-gray-300 ${instrumentSerif.className} italic text-xl font-semibold`}
             >
-              "Where AI meets imagination. Your digital companion awaits!"
+              &ldquo;Where AI meets imagination. Your digital companion awaits!&rdquo;
             </p>
           </div>
-          <Button className="w-full flex items-center justify-center gap-2 bg-gray-300 opacity-90 hover:bg-gray-300 hover:opacity-70 text-black cursor-pointer duration-300 transition-all">
+          <Button
+            onClick={handleGoogleLogin}
+            className="w-full flex items-center justify-center gap-2 bg-gray-300 opacity-90 hover:bg-gray-300 hover:opacity-70 text-black cursor-pointer duration-300 transition-all"
+          >
             <svg
               className="w-5 h-5"
               viewBox="0 0 24 24"
