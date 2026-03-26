@@ -23,18 +23,31 @@ export type SendChatPayload = {
 export const getBackendLoginUrl = () => `${BACKEND_URL}/login`;
 
 export async function sendChatMessage(payload: SendChatPayload): Promise<string> {
-  const res = await fetch(`${BACKEND_URL}/chat`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-    body: JSON.stringify({
-      user_id: payload.userId,
-      chat_id: payload.chatId,
-      query: payload.query,
-    }),
-  });
+  const shouldSendCredentials =
+    typeof window !== "undefined" && window.location.origin === BACKEND_URL;
+
+  let res: Response;
+  try {
+    res = await fetch(`${BACKEND_URL}/chat`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Avoid cross-origin credentialed requests by default to prevent CORS failures.
+      credentials: shouldSendCredentials ? "include" : "omit",
+      body: JSON.stringify({
+        user_id: payload.userId,
+        chat_id: payload.chatId,
+        query: payload.query,
+      }),
+    });
+  } catch (error) {
+    const reason =
+      error instanceof Error && error.message
+        ? error.message
+        : "Network request failed";
+    throw new Error(`Failed to reach backend at ${BACKEND_URL}: ${reason}`);
+  }
 
   if (!res.ok) {
     let err: BackendErrorResponse | null = null;
