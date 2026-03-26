@@ -3,14 +3,8 @@ import { Dumbbell } from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { Separator } from "./ui/separator";
-import { GiGymBag } from "react-icons/gi";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 
-type Props = {};
+type Props = Record<string, never>;
 
 const navLinks = [
   {

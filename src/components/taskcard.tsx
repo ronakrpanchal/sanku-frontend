@@ -5,7 +5,7 @@ import { FiPlus } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 
-type Props = {};
+type Props = Record<string, never>;
 
 const workoutRoutine = [
   { id: 1, name: "Benchpress", weight: 40, rep: 10, isComplete: false },
@@ -21,7 +21,6 @@ export default function TaskCard({}: Props) {
       const newWorkouts = prev.map((w) =>
         w.id === id ? { ...w, isComplete: !w.isComplete } : w
       );
-      const workout = newWorkouts.find((w) => w.id === id);
       return newWorkouts;
     });
   };

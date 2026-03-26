@@ -13,44 +13,44 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export default function LoginCard() {
-  const toastMessages = [
-    {
-      title: "Heads Up",
-      description:
-        "You've been on Instagram for 30 minutes. Still want to be doing this?",
-      action: {
-        label: "Nope",
-        onClick: () => console.log("User clicked Nope"),
-      },
-    },
-    {
-      title: "Set the Mood? 🎧",
-      description:
-        "You're in work mode. Want me to play your deep focus playlist?",
-      action: {
-        label: "Play 🎵",
-        onClick: () => console.log("User clicked Play"),
-      },
-    },
-    {
-      title: "Sanku check-in",
-      description: "Hey there! How's your day going so far?",
-      action: {
-        label: "Great!",
-        onClick: () => console.log("User is having a great day"),
-      },
-    },
-    {
-      title: "Remember",
-      description: "Drink some water. Stay hydrated!",
-      action: {
-        label: "Thanks",
-        onClick: () => console.log("User acknowledged hydration reminder"),
-      },
-    },
-  ];
-
   useEffect(() => {
+    const toastMessages = [
+      {
+        title: "Heads Up",
+        description:
+          "You've been on Instagram for 30 minutes. Still want to be doing this?",
+        action: {
+          label: "Nope",
+          onClick: () => console.log("User clicked Nope"),
+        },
+      },
+      {
+        title: "Set the Mood? 🎧",
+        description:
+          "You're in work mode. Want me to play your deep focus playlist?",
+        action: {
+          label: "Play 🎵",
+          onClick: () => console.log("User clicked Play"),
+        },
+      },
+      {
+        title: "Sanku check-in",
+        description: "Hey there! How's your day going so far?",
+        action: {
+          label: "Great!",
+          onClick: () => console.log("User is having a great day"),
+        },
+      },
+      {
+        title: "Remember",
+        description: "Drink some water. Stay hydrated!",
+        action: {
+          label: "Thanks",
+          onClick: () => console.log("User acknowledged hydration reminder"),
+        },
+      },
+    ];
+
     const showRandomToast = () => {
       const randomIndex = Math.floor(Math.random() * toastMessages.length);
       const message = toastMessages[randomIndex];
@@ -81,15 +81,6 @@ export default function LoginCard() {
     };
   }, []);
 
-  // Handle redirect in client component
-  const handlePlayClick = () => {
-    window.location.href = "/";
-    // Note: For Next.js navigation within the app, you would typically use:
-    // import { useRouter } from 'next/navigation';
-    // const router = useRouter();
-    // router.push('/');
-  };
-
   return (
     <div className="flex justify-center items-center h-screen w-full">
       <div className="gradient-bg absolute top-10 right-[47%]" />
@@ -103,7 +94,7 @@ export default function LoginCard() {
             <p
               className={`text-sm text-gray-300 ${instrumentSerif.className} italic text-xl font-semibold`}
             >
-              "Where AI meets imagination. Your digital companion awaits!"
+              &quot;Where AI meets imagination. Your digital companion awaits!&quot;
             </p>
           </div>
           <Button className="w-full flex items-center justify-center gap-2 bg-gray-300 opacity-90 hover:bg-gray-300 hover:opacity-70 text-black cursor-pointer duration-300 transition-all">

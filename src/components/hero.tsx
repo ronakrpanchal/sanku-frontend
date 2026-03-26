@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import { BicepsFlexed } from "lucide-react";
 import { Instrument_Serif } from "next/font/google";
 import TaskCard from "./taskcard";
-type Props = {};
+type Props = Record<string, never>;
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument",

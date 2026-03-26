@@ -29,44 +29,43 @@ export default function Page() {
     );
   };
 
-  const toastMessages = [
-    {
-      title: "Heads Up",
-      description:
-        "You've been on Instagram for 30 minutes. Still want to be doing this?",
-      action: {
-        label: "Nope",
-        onClick: () => console.log("User clicked Nope"),
-      },
-    },
-    {
-      title: "Set the Mood? 🎧",
-      description:
-        "You're in work mode. Want me to play your deep focus playlist?",
-      action: {
-        label: "Play 🎵",
-        onClick: handlePlayMusic,
-      },
-    },
-    {
-      title: "Sanku check-in",
-      description: "Hey there! How's your day going so far?",
-      action: {
-        label: "Great!",
-        onClick: () => console.log("User is having a great day"),
-      },
-    },
-    {
-      title: "Remember",
-      description: "Drink some water. Stay hydrated!",
-      action: {
-        label: "Thanks",
-        onClick: () => console.log("User acknowledged hydration reminder"),
-      },
-    },
-  ];
-
   useEffect(() => {
+    const toastMessages = [
+      {
+        title: "Heads Up",
+        description:
+          "You've been on Instagram for 30 minutes. Still want to be doing this?",
+        action: {
+          label: "Nope",
+          onClick: () => console.log("User clicked Nope"),
+        },
+      },
+      {
+        title: "Set the Mood? 🎧",
+        description:
+          "You're in work mode. Want me to play your deep focus playlist?",
+        action: {
+          label: "Play 🎵",
+          onClick: handlePlayMusic,
+        },
+      },
+      {
+        title: "Sanku check-in",
+        description: "Hey there! How's your day going so far?",
+        action: {
+          label: "Great!",
+          onClick: () => console.log("User is having a great day"),
+        },
+      },
+      {
+        title: "Remember",
+        description: "Drink some water. Stay hydrated!",
+        action: {
+          label: "Thanks",
+          onClick: () => console.log("User acknowledged hydration reminder"),
+        },
+      },
+    ];
     // Function to show toast in sequential order
     const showSequentialToast = () => {
       const message = toastMessages[currentToastIndex];

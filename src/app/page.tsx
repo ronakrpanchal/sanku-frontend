@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Navbar from "@/components/navbar";
 import Hero from "@/components/hero";
 import { Instrument_Serif } from "next/font/google";
@@ -39,19 +40,19 @@ const IntroducingSenku = () => {
       className="wrapper flex justify-center flex-col items-center mt-10 px-4 md:px-6 space-y-3"
     >
       <h2 className="text-xl font-bold uppercase gradient-text">
-        What Sanku want's to say
+        What Sanku want&apos;s to say
       </h2>
       <h1 className="text-2xl md:text-4xl text-center max-w-lg">
         Hey, I can understand{" "}
         <span className="text-[#4D4D4D]">
-          Tracking workouts, pushing PRs, and staying consistent isn't easy.{" "}
+          Tracking workouts, pushing PRs, and staying consistent isn&apos;t easy.{" "}
         </span>
         <span className="text-[#4D4D4D]">
           Your AI-powered training partner keeps you on track, motivated, and
           making real progress with every rep and set.{" "}
         </span>
         <br />
-        That's where Gymbro comes in.{" "}
+        That&apos;s where Gymbro comes in.{" "}
       </h1>
     </motion.div>
   );
@@ -153,10 +154,12 @@ export const Testimonials = () => {
             </p>
 
             <div className="flex gap-2 items-center">
-              <img
+              <Image
                 className="w-8 h-8 md:w-10 md:h-10 rounded-full"
                 src="https://github.com/sankalpaacharya.png"
-                alt=""
+                alt="Profile"
+                width={40}
+                height={40}
               />
               <p className="flex flex-col">
                 <span className="text-sm md:text-base">Sankalpa Acharya</span>
@@ -272,7 +275,7 @@ const Footer = () => {
               <h3 className="text-lg font-medium">Join our newsletter</h3>
               <p className="text-sm text-gray-400">
                 Sign up to our mailing list below and be the first to know about
-                new updates. Don't worry, we hate spam too.
+                new updates. Don&apos;t worry, we hate spam too.
               </p>
               <div className="flex gap-2">
                 <input
@@ -346,9 +349,11 @@ const Footer = () => {
           <div className="flex items-center space-x-2">
             <span className="text-sm text-gray-400">Created by</span>
             <div className="flex items-center space-x-2">
-              <img
+              <Image
                 src="https://github.com/sankalpaacharya.png"
                 alt="Creator"
+                width={40}
+                height={40}
                 className="w-6 h-6 rounded-full"
               />
               <span className="text-sm">Sankalpa Acharya</span>

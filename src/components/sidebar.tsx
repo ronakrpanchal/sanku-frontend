@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-type Props = {};
+type Props = Record<string, never>;
 
 const Links = [
   { name: "Chat", href: "/chat", icon: MessageCircle, optional: "/c" },
