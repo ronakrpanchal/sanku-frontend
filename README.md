@@ -80,7 +80,7 @@ It is designed as a clean UI layer that communicates with a backend API.
 ### Installation
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/ronakrpanchal/sanku-frontend.git
 cd sanku-frontend
 pnpm install
 ```
