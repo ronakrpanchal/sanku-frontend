@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,8 +13,8 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export default function LoginCard() {
-  useEffect(() => {
-    const toastMessages = [
+  const toastMessages = useMemo(
+    () => [
       {
         title: "Heads Up",
         description:
@@ -49,8 +49,11 @@ export default function LoginCard() {
           onClick: () => console.log("User acknowledged hydration reminder"),
         },
       },
-    ];
+    ],
+    []
+  );
 
+  useEffect(() => {
     const showRandomToast = () => {
       const randomIndex = Math.floor(Math.random() * toastMessages.length);
       const message = toastMessages[randomIndex];
@@ -79,7 +82,7 @@ export default function LoginCard() {
       clearTimeout(initialTimeout);
       clearInterval(intervalId);
     };
-  }, []);
+  }, [toastMessages]);
 
   return (
     <div className="flex justify-center items-center h-screen w-full">

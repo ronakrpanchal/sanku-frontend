@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -21,16 +21,16 @@ export default function Page() {
   };
 
   // Function to handle YouTube redirect
-  const handlePlayMusic = () => {
+  const handlePlayMusic = useCallback(() => {
     // Using window.open for more reliable redirection
     window.open(
       "https://www.youtube.com/watch?v=eVli-tstM5E&list=RDeVli-tstM5E&start_radio=1",
       "_blank"
     );
-  };
+  }, []);
 
-  useEffect(() => {
-    const toastMessages = [
+  const toastMessages = useMemo(
+    () => [
       {
         title: "Heads Up",
         description:
@@ -65,7 +65,11 @@ export default function Page() {
           onClick: () => console.log("User acknowledged hydration reminder"),
         },
       },
-    ];
+    ],
+    [handlePlayMusic]
+  );
+
+  useEffect(() => {
     // Function to show toast in sequential order
     const showSequentialToast = () => {
       const message = toastMessages[currentToastIndex];
@@ -95,7 +99,7 @@ export default function Page() {
       clearTimeout(initialTimeout);
       clearInterval(intervalId);
     };
-  }, [currentToastIndex]);
+  }, [currentToastIndex, toastMessages]);
 
   return (
     <div className="flex justify-center items-center h-screen w-full">
