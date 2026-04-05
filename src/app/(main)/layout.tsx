@@ -7,9 +7,7 @@ export default function Layout({ children }: Props) {
   return (
     <div className="flex h-screen bg-[#161618]">
       <SideBar />
-      <main className="flex-1 overflow-x-auto">
-        <div className="max-w-[1500px] mx-auto h-screen pt-16">{children}</div>
-      </main>
+      <main className="flex-1 h-full overflow-x-auto">{children}</main>
     </div>
   );
 }

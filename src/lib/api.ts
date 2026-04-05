@@ -20,8 +20,6 @@ export type SendChatPayload = {
   query: string;
 };
 
-export const getBackendLoginUrl = () => `${BACKEND_URL}/login`;
-
 export async function sendChatMessage(payload: SendChatPayload): Promise<string> {
   const shouldSendCredentials =
     typeof window !== "undefined" && window.location.origin === BACKEND_URL;

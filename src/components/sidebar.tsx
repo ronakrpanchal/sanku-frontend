@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Dumbbell, MessageCircle, Trophy, NotebookPen } from "lucide-react";
+import { Dumbbell, MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -10,9 +10,6 @@ type Props = Record<string, never>;
 
 const Links = [
   { name: "Chat", href: "/chat", icon: MessageCircle, optional: "/c" },
-  { name: "Workouts", href: "/workout", icon: Dumbbell },
-  { name: "Achievement", href: "/achievement", icon: Trophy },
-  { name: "Notes", href: "/notes", icon: NotebookPen },
 ];
 
 export default function SideBar({}: Props) {
@@ -68,19 +65,6 @@ export default function SideBar({}: Props) {
           ))}
         </nav>
       </div>
-
-      {/* User Profile */}
-      <motion.div transition={{ duration: 0.2 }} className="p-4">
-        <div className="flex items-center space-x-3 bg-white/5 p-3 rounded-xl cursor-pointer hover:bg-white/15 transition-all duration-300 border border-indigo-500/20">
-          <div className="w-10 h-10 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center text-xs font-medium text-white">
-            JD
-          </div>
-          <div className="flex-1">
-            <p className="text-sm font-medium text-white">John Doe</p>
-            <p className="text-xs text-indigo-200/70">Pro Member</p>
-          </div>
-        </div>
-      </motion.div>
     </motion.aside>
   );
 }
