@@ -44,7 +44,7 @@ export default function ChatInput({
 
   return (
     <div className={cn("left-0 right-0 mx-auto w-full max-w-4xl", className)}>
-      <div className="rounded-2xl overflow-hidden transition-all duration-300 border bg-gray-500/10">
+      <div className="overflow-hidden rounded-2xl border bg-gray-500/10 transition-all duration-300">
         <textarea
           ref={textareaRef}
           value={message}
@@ -52,18 +52,18 @@ export default function ChatInput({
           onKeyDown={handleKeyDown}
           disabled={disabled}
           placeholder="Ask anything"
-          className="w-full bg-transparent border-0 min-h-14 max-h-[300px] px-5 py-4 text-white focus:outline-none placeholder:text-gray-500 resize-none"
+          className="min-h-12 max-h-[240px] w-full resize-none border-0 bg-transparent px-4 py-3 text-sm text-white placeholder:text-gray-500 focus:outline-none md:min-h-14 md:max-h-[300px] md:px-5 md:py-4 md:text-base"
           rows={1}
         />
 
         {/* Bottom action bar */}
-        <div className="flex items-center justify-between px-5 py-3 border-t border-gray-800/50">
+        <div className="flex items-center justify-between border-t border-gray-800/50 px-3 py-2.5 md:px-5 md:py-3">
           {/* Left side buttons */}
-          <div className="flex items-center space-x-3">
-            <button className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-indigo-400 rounded-full hover:bg-white/5 transition-colors">
+          <div className="flex items-center space-x-2 md:space-x-3">
+            <button className="flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-white/5 hover:text-indigo-400 md:h-9 md:w-9">
               <Search size={18} />
             </button>
-            <button className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-indigo-400 rounded-full hover:bg-white/5 transition-colors">
+            <button className="flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-white/5 hover:text-indigo-400 md:h-9 md:w-9">
               <Lightbulb size={18} />
             </button>
           </div>
@@ -71,20 +71,20 @@ export default function ChatInput({
           <button
             onClick={handleSendMessage}
             disabled={!message.trim() || disabled}
-            className={`px-5 h-10 flex items-center justify-center rounded-full text-white duration-200 ${
+            className={`flex h-9 items-center justify-center rounded-full px-3 text-white duration-200 md:h-10 md:px-5 ${
               message.trim() && !disabled
                 ? "bg-indigo-600 shadow-md"
                 : "bg-transparent border border-gray-700 text-gray-500"
             }`}
           >
-            <SendHorizontal size={18} className="mr-2" />
-            <span className="text-sm font-medium">
+            <SendHorizontal size={16} className="mr-1.5 md:mr-2" />
+            <span className="text-xs font-medium md:text-sm">
               {disabled ? "Sending..." : "Send"}
             </span>
           </button>
         </div>
       </div>
-      <div className="text-xs text-center mt-2 text-gray-500">
+      <div className="mt-2 text-center text-[11px] text-gray-500 md:text-xs">
         Sanku is designed to help you achieve your daily goals
       </div>
     </div>

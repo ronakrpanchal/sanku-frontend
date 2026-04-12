@@ -64,18 +64,18 @@ export default function Page() {
   };
 
   return (
-    <div className="flex h-full flex-col">
-      <ScrollArea className="flex-grow overflow-y-auto py-4">
-        <div className="max-w-3xl mx-auto space-y-8 px-3">
+    <div className="flex min-h-[calc(100dvh-4rem)] flex-col md:min-h-dvh">
+      <ScrollArea className="flex-1 overflow-y-auto px-2 pb-4 pt-3 md:px-0 md:pt-4">
+        <div className="mx-auto w-full max-w-3xl space-y-6 px-2 pb-3 md:space-y-8 md:px-3">
           {messages.length === 0 ? (
-            <div className="text-center mb-4 pt-12">
-              <div className="flex gap-2 justify-center">
-                <h2 className="text-5xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <div className="mb-3 pt-8 text-center md:mb-4 md:pt-12">
+              <div className="flex items-center justify-center gap-2">
+                <h2 className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl">
                   Welcome Sankalpa
                 </h2>
-                <span className="text-5xl">👋</span>
+                <span className="text-3xl sm:text-4xl md:text-5xl">👋</span>
               </div>
-              <h2 className="text-2xl mt-2">What can I help you with?</h2>
+              <h2 className="mt-2 text-lg sm:text-xl md:text-2xl">What can I help you with?</h2>
             </div>
           ) : (
             messages.map((message) => (
@@ -91,7 +91,7 @@ export default function Page() {
         </div>
       </ScrollArea>
 
-      <div className="mt-auto">
+      <div className="sticky bottom-0 z-30 mt-auto border-t border-gray-800/40 bg-[#161618]/95 px-2 pb-4 pt-3 backdrop-blur-sm md:border-none md:bg-transparent md:px-3 md:pb-4 md:pt-2">
         <ChatInput className="max-w-3xl" onSend={handleSend} disabled={isSending} />
       </div>
     </div>

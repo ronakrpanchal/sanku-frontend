@@ -22,9 +22,9 @@ export default function MessageBubble({
   const safeContent = content ?? "";
 
   return (
-    <div className="flex flex-col space-y-10 text-lg font-medium">
+    <div className="flex flex-col space-y-6 text-base font-medium md:space-y-10 md:text-lg">
       {resolvedRole === "user" ? (
-        <div className="bg-gray-400/10 max-w-lg p-3 rounded-xl right-0 border flex shadow-md self-end">
+        <div className="self-end rounded-xl border border-gray-700/40 bg-gray-400/10 p-3 text-sm shadow-md sm:max-w-lg md:text-base">
           {safeContent}
         </div>
       ) : (
@@ -45,7 +45,7 @@ export default function MessageBubble({
               </div>
             )}
           </div>
-          <div className="prose prose-slate dark:prose-invert prose-lg prose-li:marker:text-pink-400 prose-p:font-semibold">
+          <div className="prose prose-sm prose-slate dark:prose-invert md:prose-lg prose-li:marker:text-pink-400 prose-p:font-semibold">
             <Markdown remarkPlugins={[remarkGfm]}>{safeContent}</Markdown>
           </div>
         </div>
