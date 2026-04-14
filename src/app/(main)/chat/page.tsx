@@ -1,31 +1,65 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChatInput from "@/features/chat/components/chat-input";
 import MessageBubble from "@/features/chat/components/message-bubble";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { sendChatMessage } from "@/lib/api";
-
-type ChatMessage = {
-  id: string;
-  role: "user" | "ai";
-  content: string;
-};
+import { ChatMessage, fetchChatMessages, sendChatMessage } from "@/lib/api";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Page() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const chatId = useMemo(() => {
+  const userId = "web-user";
+  const chatId = searchParams.get("chatId");
+
+  useEffect(() => {
+    if (!chatId) {
+      setMessages([]);
+      return;
+    }
+
+    let ignore = false;
+
+    const loadMessages = async () => {
+      setIsLoadingHistory(true);
+      try {
+        const history = await fetchChatMessages(userId, chatId);
+        if (!ignore) {
+          setMessages(history);
+        }
+      } catch {
+        if (!ignore) {
+          setMessages([]);
+        }
+      } finally {
+        if (!ignore) {
+          setIsLoadingHistory(false);
+        }
+      }
+    };
+
+    void loadMessages();
+
+    return () => {
+      ignore = true;
+    };
+  }, [chatId]);
+
+  const createChatId = () => {
     if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
       return crypto.randomUUID();
     }
     return `chat-${Date.now()}`;
-  }, []);
-
-  const userId = "web-user";
+  };
 
   const handleSend = async (message: string) => {
+    const targetChatId = chatId || createChatId();
+
     const userMessage: ChatMessage = {
       id: `user-${Date.now()}`,
       role: "user",
@@ -38,7 +72,7 @@ export default function Page() {
     try {
       const aiResponse = await sendChatMessage({
         userId,
-        chatId,
+        chatId: targetChatId,
         query: message,
       });
 
@@ -48,6 +82,10 @@ export default function Page() {
         content: aiResponse,
       };
       setMessages((prev) => [...prev, aiMessage]);
+
+      if (!chatId) {
+        router.replace(`/chat?chatId=${encodeURIComponent(targetChatId)}`);
+      }
     } catch (error) {
       const aiMessage: ChatMessage = {
         id: `ai-error-${Date.now()}`,
@@ -58,6 +96,10 @@ export default function Page() {
             : "Error: Failed to connect with backend",
       };
       setMessages((prev) => [...prev, aiMessage]);
+
+      if (!chatId) {
+        router.replace(`/chat?chatId=${encodeURIComponent(targetChatId)}`);
+      }
     } finally {
       setIsSending(false);
     }
@@ -67,7 +109,9 @@ export default function Page() {
     <div className="flex min-h-[calc(100dvh-4rem)] flex-col md:min-h-dvh">
       <ScrollArea className="flex-1 overflow-y-auto px-2 pb-4 pt-3 md:px-0 md:pt-4">
         <div className="mx-auto w-full max-w-3xl space-y-6 px-2 pb-3 md:space-y-8 md:px-3">
-          {messages.length === 0 ? (
+          {isLoadingHistory ? (
+            <MessageBubble role="ai" content="Loading chat history..." />
+          ) : messages.length === 0 ? (
             <div className="mb-3 pt-8 text-center md:mb-4 md:pt-12">
               <div className="flex items-center justify-center gap-2">
                 <h2 className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl">

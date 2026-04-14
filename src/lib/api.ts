@@ -14,11 +14,47 @@ type ChatResponse = {
   message?: string;
 };
 
+type ChatListResponse = {
+  chats?: ChatSummary[];
+  error?: string;
+  message?: string;
+};
+
+type ChatMessagesResponse = {
+  messages?: ChatMessage[];
+  error?: string;
+  message?: string;
+};
+
 export type SendChatPayload = {
   userId: string;
   chatId: string;
   query: string;
 };
+
+export type ChatSummary = {
+  chat_id: string;
+  title: string;
+  created_at: string;
+};
+
+export type ChatMessage = {
+  id: string;
+  role: "user" | "ai";
+  content: string;
+  created_at?: string;
+};
+
+async function parseError(res: Response): Promise<string> {
+  let err: BackendErrorResponse | null = null;
+  try {
+    err = (await res.json()) as BackendErrorResponse;
+  } catch {
+    err = null;
+  }
+
+  return err?.message || err?.error || `Request failed with status ${res.status}`;
+}
 
 export async function sendChatMessage(payload: SendChatPayload): Promise<string> {
   const shouldSendCredentials =
@@ -48,15 +84,7 @@ export async function sendChatMessage(payload: SendChatPayload): Promise<string>
   }
 
   if (!res.ok) {
-    let err: BackendErrorResponse | null = null;
-    try {
-      err = (await res.json()) as BackendErrorResponse;
-    } catch {
-      err = null;
-    }
-
-    const fallback = `Request failed with status ${res.status}`;
-    throw new Error(err?.message || err?.error || fallback);
+    throw new Error(await parseError(res));
   }
 
   const data = (await res.json()) as ChatResponse;
@@ -65,4 +93,37 @@ export async function sendChatMessage(payload: SendChatPayload): Promise<string>
   }
 
   return data.response;
+}
+
+export async function fetchUserChats(userId: string): Promise<ChatSummary[]> {
+  const res = await fetch(`${BACKEND_URL}/chats/${encodeURIComponent(userId)}`, {
+    method: "GET",
+    credentials: "omit",
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error(await parseError(res));
+  }
+
+  const data = (await res.json()) as ChatListResponse;
+  return data.chats ?? [];
+}
+
+export async function fetchChatMessages(userId: string, chatId: string): Promise<ChatMessage[]> {
+  const res = await fetch(
+    `${BACKEND_URL}/chats/${encodeURIComponent(userId)}/${encodeURIComponent(chatId)}/messages`,
+    {
+      method: "GET",
+      credentials: "omit",
+      cache: "no-store",
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(await parseError(res));
+  }
+
+  const data = (await res.json()) as ChatMessagesResponse;
+  return data.messages ?? [];
 }

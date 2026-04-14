@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
-import { Dumbbell, Menu, MessageCircle, X } from "lucide-react";
-import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { Dumbbell, Menu, MessageCircle, Plus, X } from "lucide-react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { ChatSummary, fetchUserChats } from "@/lib/api";
 
 type Props = Record<string, never>;
 
@@ -14,9 +15,85 @@ const Links = [
 
 export default function SideBar({}: Props) {
   const activeLink = usePathname();
+  const searchParams = useSearchParams();
+  const activeChatId = searchParams.get("chatId");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [chats, setChats] = useState<ChatSummary[]>([]);
+  const [isLoadingChats, setIsLoadingChats] = useState(false);
+  const userId = "web-user";
+
+  useEffect(() => {
+    let ignore = false;
+
+    const loadChats = async () => {
+      setIsLoadingChats(true);
+      try {
+        const userChats = await fetchUserChats(userId);
+        if (!ignore) {
+          setChats(userChats);
+        }
+      } catch {
+        if (!ignore) {
+          setChats([]);
+        }
+      } finally {
+        if (!ignore) {
+          setIsLoadingChats(false);
+        }
+      }
+    };
+
+    void loadChats();
+
+    return () => {
+      ignore = true;
+    };
+  }, [activeChatId]);
+
   const isActiveRoute = (href: string, optional?: string) =>
     activeLink === href || activeLink.startsWith(optional || "/x");
+
+  const isChatActive = (chatId: string) => activeLink === "/chat" && activeChatId === chatId;
+
+  const renderHistory = (onClick?: () => void) => (
+    <div className="mt-4 space-y-2">
+      <Link
+        href="/chat"
+        onClick={onClick}
+        className="flex items-center gap-2 rounded-lg border border-gray-700/70 px-3 py-2 text-sm text-gray-200 transition hover:border-indigo-400/60 hover:text-white"
+      >
+        <Plus size={16} />
+        <span>New Chat</span>
+      </Link>
+
+      <div className="max-h-[45dvh] space-y-1 overflow-y-auto pr-1 md:max-h-[55dvh]">
+        {isLoadingChats && (
+          <div className="px-2 py-2 text-xs text-gray-400">Loading chats...</div>
+        )}
+
+        {!isLoadingChats && chats.length === 0 && (
+          <div className="px-2 py-2 text-xs text-gray-500">No saved chats yet</div>
+        )}
+
+        {!isLoadingChats &&
+          chats.map((chat) => (
+            <Link
+              key={chat.chat_id}
+              href={`/chat?chatId=${encodeURIComponent(chat.chat_id)}`}
+              onClick={onClick}
+              className={`block rounded-lg px-3 py-2 text-sm transition ${
+                isChatActive(chat.chat_id)
+                  ? "bg-indigo-500/20 text-white"
+                  : "text-gray-300 hover:bg-white/10"
+              }`}
+              title={chat.title}
+            >
+              <div className="line-clamp-2">{chat.title || "Untitled chat"}</div>
+            </Link>
+          ))}
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -87,6 +164,8 @@ export default function SideBar({}: Props) {
             </Link>
           ))}
         </nav>
+
+        {isActiveRoute("/chat", "/c") && renderHistory(() => setIsMobileMenuOpen(false))}
       </motion.aside>
 
       <motion.aside
@@ -130,6 +209,8 @@ export default function SideBar({}: Props) {
               </Link>
             ))}
           </nav>
+
+          {isActiveRoute("/chat", "/c") && renderHistory()}
         </div>
       </motion.aside>
     </>
