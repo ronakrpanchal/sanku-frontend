@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import ChatInput from "@/features/chat/components/chat-input";
 import MessageBubble from "@/features/chat/components/message-bubble";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChatMessage, fetchChatMessages, sendChatMessage } from "@/lib/api";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function Page() {
+function ChatPageContent() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   const [isSending, setIsSending] = useState(false);
@@ -139,5 +139,13 @@ export default function Page() {
         <ChatInput className="max-w-3xl" onSend={handleSend} disabled={isSending} />
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div className="flex h-full items-center justify-center">Loading...</div>}>
+      <ChatPageContent />
+    </Suspense>
   );
 }
